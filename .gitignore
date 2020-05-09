@@ -201,3 +201,6 @@ typings/
 
 # project venv
 project_venv/
+
+# windows batch
+*.bat
