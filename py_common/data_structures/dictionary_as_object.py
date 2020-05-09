@@ -2,6 +2,7 @@ import collections
 import json
 from typing import TypeVar
 
+
 DictionaryAsObject = TypeVar('DictionaryAsObject', bound='DictionaryAsObject')
 class DictionaryAsObject(collections.MutableMapping):
 
