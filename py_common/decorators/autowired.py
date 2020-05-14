@@ -1,40 +1,61 @@
+import builtins
 import inspect
-from enum import Enum
 from functools import wraps
 
+from py_common.decorators.autowired_enums import AutoWiredType, AutoWiredState
+from py_common.decorators.autowired_handler import autowired_handler
+from py_common.dependency_injection.dependency_injection_exception import DependencyInjectionException
 
-class AutoWiredType(Enum):
-    SINGLETON = 'singleton'
-    SINGLECALL = 'singlecall'
+
+builtin_types = [getattr(builtins, d) for d in dir(builtins) if isinstance(getattr(builtins, d), type)]
 
 
-def autowired(auto_wired_type: AutoWiredType=AutoWiredType.SINGLETON):
+def autowired(auto_wired_type=AutoWiredType.SINGLETON):
     """
         Notice: currently does not support nested locking beware will result in a deadlock
     """
     def wrapper(func):
         @wraps(func)
         def inner_wrapper(*args, **kwargs):
-            signature: inspect.Signature = inspect.signature(func)
-            parameter: inspect.Parameter = None
-            annotation: type = None
-
-            for key in signature.parameters:
-                parameter = signature.parameters[key]
-                annotation = parameter.annotation
-
-                if key == 'self':
-                    pass
-
-                elif annotation == inspect._empty:
-                    pass
-
-                else:
-                    if auto_wired_type == AutoWiredType.SINGLETON:
-                        obj = parameter.annotation()
-                    elif auto_wired_type == AutoWiredType.SINGLECALL:
-                        obj = parameter.annotation()
-
-            return func(*args, **kwargs)
+            return autowired_handler.autowire_and_call(func, auto_wired_type, args, kwargs)
+            # signature: inspect.Signature = inspect.signature(func)
+            # parameter: inspect.Parameter = None
+            # annotation: type = None
+            # args_index: int = -1
+            # auto_wired_state: AutoWiredState = AutoWiredState.IN_ARGS
+            # type_name: str = None
+            #
+            # for key in signature.parameters:
+            #     args_index += 1
+            #     parameter = signature.parameters[key]
+            #     annotation = parameter.annotation
+            #
+            #     if len(args) == args_index:
+            #         auto_wired_state = AutoWiredState.OUT_OF_ARGS
+            #
+            #     if auto_wired_state == AutoWiredState.IN_ARGS:
+            #         kwargs[key] = args[args_index]
+            #         continue
+            #
+            #     if auto_wired_state == AutoWiredState.OUT_OF_ARGS:
+            #         if key in kwargs:
+            #             continue
+            #
+            #         elif annotation == inspect._empty:
+            #             """
+            #                 type hint must be used in order to inject a type using python-dependency-injection
+            #             """
+            #             raise DependencyInjectionException(1, f'type hint must be used in order to inject a type. param_name=[{key}]')
+            #
+            #         else:
+            #             if annotation in builtin_types:
+            #                 raise DependencyInjectionException(1, f'Cannot inject builtin types. param_type=[{annotation.__name__}] param_name=[{key}]')
+            #
+            #             if auto_wired_type == AutoWiredType.SINGLECALL:
+            #                 kwargs[key] = annotation()
+            #             elif auto_wired_type == AutoWiredType.SINGLETON:
+            #                 pass
+            #
+            #return func(**kwargs)
         return inner_wrapper
     return wrapper

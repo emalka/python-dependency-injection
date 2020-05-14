@@ -8,7 +8,7 @@ class SingletonHandler:
     _singletons: dict = {}
 
     @classmethod
-    def add_singleton(cls, required_class: type, cls_init_func: Callable, *args, **kwargs) -> object:
+    def add_singleton(cls, required_class: type, init_func: Callable, *args, **kwargs) -> object:
         # get specific class lock to avoid dead lock when creating singleton inside singleton
         cls._lock.acquire()
         if required_class.__name__ not in cls._class_locks:
@@ -19,7 +19,7 @@ class SingletonHandler:
         # using the class lock access the in
         class_lock.acquire()
         if required_class not in cls._singletons:
-            cls._singletons[required_class] = cls_init_func.__call__(*args, **kwargs)
+            cls._singletons[required_class] = init_func.__call__(*args, **kwargs)
         instance = cls._singletons[required_class]
         class_lock.release()
 
