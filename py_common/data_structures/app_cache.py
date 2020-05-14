@@ -10,7 +10,6 @@ class AppCache(metaclass=Singleton):
     def __init__(self):
         # will be used by @synchronized()
         self.lock: Lock = Lock()
-
         self._cache: DictionaryAsObject = DictionaryAsObject()
 
     @synchronized()

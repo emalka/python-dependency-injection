@@ -8,10 +8,9 @@ from py_common.dependency_injection.test_dependency_injection.test_class_singlet
 class TestInjection(TestCase):
     def test_constructor_injection(self) -> None:
 
-        test_class_singlecall: TestClassSinglecall = TestClassSinglecall()
-        test_class_singlecall.boo()
-
         test_class_singleton: TestClassSingleton = TestClassSingleton()
         test_class_singleton.boo()
 
+        test_class_singlecall: TestClassSinglecall = TestClassSinglecall()
+        test_class_singlecall.boo()
 
