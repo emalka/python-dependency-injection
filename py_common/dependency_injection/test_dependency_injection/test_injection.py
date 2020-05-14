@@ -10,10 +10,10 @@ from py_common.dependency_injection.test_dependency_injection.test_class_singlet
 class TestInjection(TestCase):
     def test_constructor_injection(self) -> None:
 
-        test_class_singleton: TestClassSingleton = TestClassSingleton(my_name='first_param')
+        test_class_singleton: TestClassSingleton = TestClassSingleton('my_name', InjectedClass1(), 'no_name', InjectedClass2())
         test_class_singleton.boo()
 
-        test_class_singleton: TestClassSingleton = TestClassSingleton('my_name', InjectedClass1(), 'no_name', InjectedClass2())
+        test_class_singleton: TestClassSingleton = TestClassSingleton(my_name='first_param')
         test_class_singleton.boo()
 
         test_class_singleton: TestClassSingleton = TestClassSingleton('my_name', InjectedClass1(), injected_class2=InjectedClass2(), no_name='no_name')
