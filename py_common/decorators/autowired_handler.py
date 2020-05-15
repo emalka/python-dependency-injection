@@ -16,9 +16,9 @@ class AutowiredHandler(metaclass=Singleton):
         signature: inspect.Signature = inspect.signature(func)
         parameter: inspect.Parameter = None
         annotation: type = None
+        instance: object = None
         args_index: int = -1
         auto_wired_state: AutoWiredState = AutoWiredState.IN_ARGS
-        type_name: str = None
 
         for key in signature.parameters:
             args_index += 1
@@ -47,10 +47,16 @@ class AutowiredHandler(metaclass=Singleton):
                         raise DependencyInjectionException(1, f'Cannot inject builtin types. param_type=[{annotation.__name__}] param_name=[{key}]')
 
                     if auto_wired_type == AutoWiredType.SINGLECALL:
-                        kwargs[key] = annotation()
+                        try:
+                            kwargs[key] = annotation()
+                        except Exception as ex:
+                            raise DependencyInjectionException(1, str(ex) + f'Cannot create object - param_type=[{annotation.__name__}] param_name=[{key}] object should have empty constructor')
 
                     elif auto_wired_type == AutoWiredType.SINGLETON:
-                        kwargs[key] = SingletonHandler.get_singleton(annotation)
+                        instance = SingletonHandler.get_singleton(annotation)
+                        if instance is None:
+                            raise DependencyInjectionException(1, f'Cannot create singleton - param_type=[{annotation.__name__}] param_name=[{key}] object should have empty constructor')
+                        kwargs[key] = instance
 
         return func(**kwargs)
 

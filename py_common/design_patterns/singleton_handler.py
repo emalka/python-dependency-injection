@@ -42,6 +42,7 @@ class SingletonHandler:
         else:
             try:
                 instance = required_class()
+                cls._singletons[required_class] = instance
             except Exception as ex:
                 instance = None
         class_lock.release()

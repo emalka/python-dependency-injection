@@ -9,7 +9,7 @@ from py_common.dependency_injection.test_dependency_injection.test_class_singlet
 
 
 class TestInjection(TestCase):
-    def test_no_injection(self) -> None:
+    def test_injection_singleton(self) -> None:
         try:
             test_class_singleton: TestClassSingleton = TestClassSingleton('my_name', 'no_name', InjectedClass1(), InjectedClass2())
         except Exception as ex:
@@ -46,7 +46,7 @@ class TestInjection(TestCase):
         except DependencyInjectionException as ex:
             self.assertEqual(ex.exception_description, 'Cannot inject builtin types. param_type=[str] param_name=[no_name]')
 
-    def test_no_injection_singlecall(self) -> None:
+    def test_injection_singlecall(self) -> None:
         try:
             test_class_singlecall: TestClassSinglecall = TestClassSinglecall('my_name', 'no_name', InjectedClass1(), InjectedClass2())
         except Exception as ex:
