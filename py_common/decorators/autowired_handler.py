@@ -5,14 +5,14 @@ from typing import Callable
 from py_common.decorators.autowired_enums import AutoWiredType, AutoWiredState
 from py_common.dependency_injection.dependency_injection_exception import DependencyInjectionException
 from py_common.design_patterns.singleton import Singleton
+from py_common.design_patterns.singleton_handler import SingletonHandler
 
 
 class AutowiredHandler(metaclass=Singleton):
     def __init__(self):
         self.builtin_types = [getattr(builtins, d) for d in dir(builtins) if isinstance(getattr(builtins, d), type)]
 
-    def autowire_and_call(self, func: Callable, auto_wired_type: AutoWiredType, *args, **kwargs) -> Callable:
-
+    def autowire(self, func: Callable, auto_wired_type: AutoWiredType, *args, **kwargs) -> Callable:
         signature: inspect.Signature = inspect.signature(func)
         parameter: inspect.Parameter = None
         annotation: type = None
@@ -40,7 +40,7 @@ class AutowiredHandler(metaclass=Singleton):
                     """
                         type hint must be used in order to inject a type using python-dependency-injection 
                     """
-                    raise DependencyInjectionException(1, f'type hint must be used in order to inject a type. param_name=[{key}]')
+                    raise DependencyInjectionException(1, f'type hints must be used in order to inject a type. param_name=[{key}]')
 
                 else:
                     if annotation in self.builtin_types:
@@ -48,8 +48,9 @@ class AutowiredHandler(metaclass=Singleton):
 
                     if auto_wired_type == AutoWiredType.SINGLECALL:
                         kwargs[key] = annotation()
+
                     elif auto_wired_type == AutoWiredType.SINGLETON:
-                        pass
+                        kwargs[key] = SingletonHandler.get_singleton(annotation)
 
         return func(**kwargs)
 
