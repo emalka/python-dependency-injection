@@ -49,7 +49,7 @@ class AutowiredHandler(metaclass=Singleton):
                     if auto_wired_type == AutoWiredType.SINGLECALL:
                         kwargs[key] = annotation()
                     elif auto_wired_type == AutoWiredType.SINGLETON:
-                        kwargs[key] = annotation()
+                        pass
 
         return func(**kwargs)
 
