@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open('README.md','r') as readme_file:
     long_description: str = readme_file.read()
@@ -12,7 +12,7 @@ setup(
     license="MIT",
     keywords="python dependency injection",
     url="https://github.com/emalka/python-dependency-injection",
-    packages=['dependency_injection', 'tests'],
+    packages=find_packages(),
     long_description=long_description,
     long_description_content_type='text/markdown',
     classifiers=[

@@ -1,5 +1,8 @@
+## Python Ignor
+## ----------------------
+
 # Byte-compiled / optimized / DLL files
-__pycache__
+__pycache__/
 *.py[cod]
 *$py.class
 
@@ -8,22 +11,24 @@ __pycache__
 
 # Distribution / packaging
 .Python
-env
-build
-develop-eggs
-dist
-downloads
-eggs
-.eggs
-lib
-lib64
-parts
-sdist
-var
-wheels
-*.egg-info
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -35,32 +40,22 @@ wheels
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Eclipse and PyDev
-.project
-.pydevproject
-
 # Unit test / coverage reports
-htmlcov
-.tox
+htmlcov/
+.tox/
+.nox/
 .coverage
 .coverage.*
 .cache
 nosetests.xml
 coverage.xml
 *.cover
-.hypothesis
+.hypothesis/
+.pytest_cache/
 
 # Translations
 *.mo
 *.pot
-
-# Django stuff:
-*.log
-local_settings.py
-
-# Flask stuff:
-instance/
-.webassets-cache
 
 # Scrapy stuff:
 .scrapy
@@ -71,22 +66,21 @@ docs/_build/
 # PyBuilder
 target/
 
-# Jupyter Notebook
-.ipynb_checkpoints
-
 # pyenv
 .python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in case of collaboration, if having platform-specific dependencies or dependencies
+#   having no cross-platform support, pipenv may install dependencies that don't work, or not
+#   install all needed dependencies.
+#Pipfile.lock
 
 # celery beat schedule file
 celerybeat-schedule
 
 # SageMath parsed files
 *.sage.py
-
-# virtualenv
-.venv
-venv/
-ENV/
 
 # Spyder project settings
 .spyderproject
@@ -95,18 +89,30 @@ ENV/
 # Rope project settings
 .ropeproject
 
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
 # mkdocs documentation
 /site
 
 # mypy
 .mypy_cache/
+.dmypy.json
+dmypy.json
 
-# Redis
-*.rdb
+# Pyre type checker
+.pyre/
+
+
+## Project specific ignor
+## ----------------------
 
 # JetBrains PyCharm
 .idea
 *.iml
+*.pyc
 
 # Apple macOS
 .DS_Store
@@ -114,35 +120,49 @@ ENV/
 # google cloud storage
 KyChecker-secret.json
 
+# Django stuff:
+*.log
+local_settings.py
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# env
+env
+.env
+
+# virtualenv
+project_venv/
+.venv
+venv/
+ENV/
+
+# windows batch
+*.bat
+
 # logs
 logs/
-
-.env
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # avoid adding secrets
 *secret*.*
 secret/
 
-
 # Deploy - Module directory
 .terraform
-
-*.pyc
 
 # pii-sql custom data location
 pii-sql/data
 
 # Redis bin
 *.rdb
-
-#API-GW
-
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
 # Runtime data
 pids
@@ -198,9 +218,3 @@ typings/
 
 #VS Code
 .vscode/
-
-# project venv
-project_venv/
-
-# windows batch
-*.bat
