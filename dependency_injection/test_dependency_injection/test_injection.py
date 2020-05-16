@@ -1,24 +1,24 @@
 from unittest import TestCase
 
 from dependency_injection.data_structures.dependency_injection_exception import DependencyInjectionException
-from dependency_injection.test_dependency_injection.injected_class1 import InjectedClass1
+from dependency_injection.test_dependency_injection.injected_class1 import InjectedClass
 from dependency_injection.test_dependency_injection.injected_class2 import InjectedClass2
 from dependency_injection.test_dependency_injection.test_class_no_type_hint import TestClassNoTypeHint
 from dependency_injection.test_dependency_injection.test_class_singlecall import TestClassSinglecall
-from dependency_injection.test_dependency_injection.test_class_singleton import TestClassSingleton
+from dependency_injection.test_dependency_injection.test_class_singleton import TestSingletonInjection
 
 
 class TestInjection(TestCase):
     def test_injection_singleton(self) -> None:
         try:
-            test_class_singleton: TestClassSingleton = TestClassSingleton('my_name', 'no_name', InjectedClass1(), InjectedClass2())
+            test_class_singleton: TestSingletonInjection = TestSingletonInjection('my_name', 'no_name', InjectedClass(), InjectedClass2())
         except Exception as ex:
             pass
         ret_val: str = test_class_singleton.boo()
         self.assertEqual('hello TestClassSingleton from InjectedClass1', ret_val)
 
         try:
-            test_class_singleton: TestClassSingleton = TestClassSingleton('my_name', 'no_name')
+            test_class_singleton: TestSingletonInjection = TestSingletonInjection('my_name', 'no_name')
         except Exception as ex:
             pass
         ret_val: str = test_class_singleton.boo()
@@ -27,7 +27,7 @@ class TestInjection(TestCase):
     def test_injection_with_builtin_types_exception(self) -> None:
         try:
             # No injection all parameters are passed. all ok.
-            test_class_no_hint_type: TestClassNoTypeHint = TestClassNoTypeHint('my_name', 'no_name', InjectedClass1(), InjectedClass2())
+            test_class_no_hint_type: TestClassNoTypeHint = TestClassNoTypeHint('my_name', 'no_name', InjectedClass(), InjectedClass2())
         except DependencyInjectionException as ex:
             pass
 
@@ -48,7 +48,7 @@ class TestInjection(TestCase):
 
     def test_injection_singlecall(self) -> None:
         try:
-            test_class_singlecall: TestClassSinglecall = TestClassSinglecall('my_name', 'no_name', InjectedClass1(), InjectedClass2())
+            test_class_singlecall: TestClassSinglecall = TestClassSinglecall('my_name', 'no_name', InjectedClass(), InjectedClass2())
         except Exception as ex:
             pass
         ret_val: str = test_class_singlecall.boo()

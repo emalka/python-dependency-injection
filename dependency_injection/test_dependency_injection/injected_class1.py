@@ -1,4 +1,4 @@
-class InjectedClass1:
+class InjectedClass:
 
     def __init__(self):
         self.message: str = ' from InjectedClass1'
