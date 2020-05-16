@@ -1,6 +1,5 @@
-from py_common.decorators.autowired import autowired
-from py_common.dependency_injection.test_dependency_injection.injected_class1 import InjectedClass1
-from py_common.dependency_injection.test_dependency_injection.injected_class2 import InjectedClass2
+from dependency_injection.decorators.autowired import autowired
+from dependency_injection.test_dependency_injection.injected_class1 import InjectedClass1
 
 
 class TestClassNoTypeHint:

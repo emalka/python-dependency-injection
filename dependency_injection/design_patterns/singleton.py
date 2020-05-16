@@ -1,6 +1,6 @@
 from typing import Callable
 
-from py_common.design_patterns.singleton_handler import SingletonHandler
+from dependency_injection.design_patterns.singleton_handler import SingletonHandler
 
 
 class Singleton(type):

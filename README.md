@@ -1,6 +1,6 @@
 # Python-dependency-injection
 
-Python-dependency-injection is a simple yet powerful framework for dependency injection in Python
+Python-dependency-injection is a simple yet powerful mini-framework for dependency injection in Python
 
 ## Installation
 

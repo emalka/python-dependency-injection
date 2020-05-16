@@ -1,8 +1,8 @@
 import builtins
 from functools import wraps
 
-from py_common.decorators.autowired_enums import AutoWiredType
-from py_common.decorators.autowired_handler import autowired_handler
+from dependency_injection.decorators.autowired_enums import AutoWiredType
+from dependency_injection.decorators.autowired_handler import autowired_handler
 
 
 def autowired(auto_wired_type=AutoWiredType.SINGLETON):

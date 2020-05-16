@@ -2,10 +2,10 @@ import inspect
 import builtins
 from typing import Callable
 
-from py_common.decorators.autowired_enums import AutoWiredType, AutoWiredState
-from py_common.dependency_injection.dependency_injection_exception import DependencyInjectionException
-from py_common.design_patterns.singleton import Singleton
-from py_common.design_patterns.singleton_handler import SingletonHandler
+from dependency_injection.decorators.autowired_enums import AutoWiredType, AutoWiredState
+from dependency_injection.data_structures.dependency_injection_exception import DependencyInjectionException
+from dependency_injection.design_patterns.singleton import Singleton
+from dependency_injection.design_patterns.singleton_handler import SingletonHandler
 
 
 class AutowiredHandler(metaclass=Singleton):
