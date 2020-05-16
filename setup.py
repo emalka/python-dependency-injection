@@ -5,7 +5,7 @@ with open('README.md','r') as readme_file:
 
 setup(
     name="Python-dependency-injection",
-    version="0.0.1",
+    version="0.0.2",
     author="Eli Malka",
     author_email="eli.malka.mail@gmail.com",
     description="Python-dependency-injection is a simple yet powerful mini-framework for dependency injection in Python",
