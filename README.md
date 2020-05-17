@@ -83,11 +83,67 @@ if __name__ == '__main__':
 
 ## Abstract Classes
 ```
-python-dependency-injection support injection of classes derived from abstract classes (abs).
-If there is in the project only one derived class the framework will find the derived class and inject it.
+python-dependency-injection support injection of classes derived from abstract classes (abs). If in 
+the developer project there is only one derived class the framework will find the derived class and 
+inject it.
 
-If there are a few derived class from the same abstract class the user need to provid a qualifiers
-dictionary that will point the system to the exact implementation for current injection.
+If there are a more then one derived class from the abstract class the user need to provid a
+qualifiers dictionary that will inform the mini framework about the actual implementation that
+should be used
+```
+
+## Abstract Classes Code
+
+```python
+from abc import ABC, abstractmethod
+from dependency_injection.decorators.autowired import autowired
+from dependency_injection.decorators.autowired_enums import AutoWiredType
+
+
+class AbsCls(ABC):
+    def __init__(self):
+        super().__init__()
+        self.message = 'AbsCls'
+
+    @abstractmethod
+    def foo(self, str1: str) -> str:
+        pass
+
+
+class Drv1(AbsCls):
+
+    def __init__(self):
+        super().__init__()
+        self.message += ' + Drv1'
+
+    def foo(self, str1: str) -> str:
+        return str1 + self.message
+
+
+class Drv2(AbsCls):
+    def __init__(self):
+        super().__init__()
+        self.message += ' + Drv2'
+
+    def foo(self, str1: str) -> str:
+        return str1 + self.message
+
+
+class Inject2Me:
+
+    # if only one object was derived from AbsCls the developer will use @autowired() instead
+    @autowired(AutoWiredType.SINGLETON, {AbsCls: Drv1})
+    def __init__(self, name: str, my_obj: AbsCls):
+        self.name = name
+        self.my_obj = my_obj
+
+    def run_me(self) -> str:
+        return self.my_obj.foo("InjectMe")
+
+
+if __name__ == '__main__':
+    inject_2_me: Inject2Me = Inject2Me('Inject2Me')
+    print(inject_2_me.run_me())
 ```
 
 
