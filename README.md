@@ -81,6 +81,16 @@ if __name__ == '__main__':
     print(test_singlecall_injection.test_inject())
 ```
 
+## Abstract Classes
+```
+python-dependency-injection support injection of classes derived from abstract classes (abs).
+If there is in the project only one derived class the framework will find the derived class and inject it.
+
+If there are a few derived class from the same abstract class the user need to provid a qualifiers
+dictionary that will point the system to the exact implementation for current injection.
+```
+
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 Please make sure to update tests as appropriate.
