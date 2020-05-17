@@ -131,7 +131,7 @@ class Drv2(AbsCls):
 
 class Inject2Me:
 
-    # if only one object was derived from AbsCls the developer will use @autowired() instead
+    # if only one object was derived from AbsCls the developer should @autowired() instead
     @autowired(AutoWiredType.SINGLETON, {AbsCls: Drv1})
     def __init__(self, name: str, my_obj: AbsCls):
         self.name = name
